@@ -1,19 +1,18 @@
 import React, { useState } from 'react'
 import { fibonacci as wasmFibonacci } from '../../../rust-app/pkg/rust_app'
 
+const jsFibonacci = (n: number): number => {
+  if (n === 0) return 0
+  if (n === 1) return 1
+  return jsFibonacci(n - 1) + jsFibonacci(n - 2)
+}
+
 const App: React.FC = () => {
   const [input, setInput] = useState<string>('')
   const [resultJS, setResultJS] = useState<number | null>(null)
   const [resultWasm, setResultWasm] = useState<number | null>(null)
   const [timeJS, setTimeJS] = useState<string | null>(null)
   const [timeWasm, setTimeWasm] = useState<string | null>(null)
-
-  // JavaScript implementation of Fibonacci
-  const jsFibonacci = (n: number): number => {
-    if (n === 0) return 0
-    if (n === 1) return 1
-    return jsFibonacci(n - 1) + jsFibonacci(n - 2)
-  }
 
   const handleMeasure = async (): Promise<void> => {
     const n = parseInt(input, 10)
